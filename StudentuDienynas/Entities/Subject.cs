@@ -14,6 +14,10 @@ namespace StudentuDienynas.Entities
         public string SubjectName3 { get; set; }
         public string SubjectName4 { get; set; }
         
+        public Subject()
+        {
+
+        }
         public Subject(int id, string subjectName, string subjectName2,string subjectName3, string subjectName4)
         {
             Id = id;

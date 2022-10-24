@@ -23,7 +23,7 @@ namespace StudentuDienynas.Classes
             while (isCorrect)
             {
                 int id = Convert.ToInt32(Console.ReadLine());
-                if (id != s1.StudentId)
+                if (id != s1.StudentId || id != 0)
                 {
                     s1.StudentId = id;
                     isCorrect = false;
@@ -41,13 +41,50 @@ namespace StudentuDienynas.Classes
             Console.WriteLine("Iveskite pavarde");
             s1.Surname = Console.ReadLine();
             m1.Id = s1.StudentId;
-            Console.WriteLine("Iveskite 1 trimestro pazymi");
-            m1.FirstTrim = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Iveskite 2 trimestro pazymi");
-            m1.SecondTrim = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Iveskite 3 trimestro pazymi");
-            m1.ThirdTrim = Convert.ToInt32(Console.ReadLine());
 
+            bool isValid = true;
+            while (isValid)
+            {
+                Console.WriteLine("Iveskite 1 trimestro pazymi (1-10)");
+                int firstTrim = Convert.ToInt32(Console.ReadLine());
+                if (firstTrim > 0 && firstTrim <= 10)
+                {
+                    m1.FirstTrim = firstTrim;
+                    isValid = false;
+                }
+                else
+                {
+                    Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
+                }
+            };
+            while (isValid)
+            {
+                Console.WriteLine("Iveskite 2 trimestro pazymi (1-10)");
+                int secondTrim = Convert.ToInt32(Console.ReadLine());
+                if (secondTrim > 0 && secondTrim <= 10)
+                {
+                    m1.SecondTrim = secondTrim;
+                    isValid = false;
+                }
+                else
+                {
+                    Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
+                }
+            };
+            while (isValid)
+            {
+                Console.WriteLine("Iveskite 3 trimestro pazymi (1-10)");
+                int thirdTrim = Convert.ToInt32(Console.ReadLine());
+                if (thirdTrim > 0 && thirdTrim <= 10)
+                {
+                    m1.ThirdTrim = thirdTrim;
+                    isValid = false;
+                }
+                else
+                {
+                    Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
+                }
+            };
             students.Save(s1);
             marks.Save(m1);
 
@@ -125,12 +162,7 @@ namespace StudentuDienynas.Classes
             {
                 Console.WriteLine($"{student.StudentName} {student.StudentSurname} 1:{student.FirstTrim}; 2:{student.SecondTrim}; 3:{student.ThirdTrim}; Metinis: {Math.Round(student.YearAvarage, 2)}");
             }
-            Console.WriteLine("[1] Prideti studenta, [2] Iseiti");
 
-            if (GetSecondUserInputFromConsole() == 1)
-            {
-                AddStudent();
-            }
 
 
         }

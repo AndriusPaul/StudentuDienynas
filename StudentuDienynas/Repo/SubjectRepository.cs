@@ -43,5 +43,9 @@ namespace StudentuDienynas.Repo
         {
             return Subjects.SingleOrDefault(x => x.Id == subjectId);
         }
+        public void Save(Subject entity)
+        {
+            Subjects.Add(entity);
+        }
     }
 }
