@@ -29,6 +29,9 @@ namespace StudentuDienynas.Classes
                     methods.SendEmail();
                     break;
                 case 6:
+                    methods.GeneratePDF();
+                    break;
+                case 7:
                     Environment.Exit(0);
                     break;
                 default:

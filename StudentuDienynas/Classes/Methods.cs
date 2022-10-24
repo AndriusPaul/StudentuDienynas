@@ -84,7 +84,7 @@ namespace StudentuDienynas.Classes
 
             while (!isCorrectNumber)
             {
-                Console.WriteLine("Meniu:\n [1] Prideti Studenta\n [2] Esamas studentu sarasas\n [3] Rodyti studentus kuriu metinis (ivesti)\n [4] Studentu dalyku sarasas\n [5] Siusti ataskaita i el. pasta\n [6] Iseiti is programos\n");
+                Console.WriteLine("Meniu:\n [1] Prideti Studenta\n [2] Esamas studentu sarasas\n [3] Rodyti studentus kuriu metinis (ivesti)\n [4] Studentu dalyku sarasas\n [5] Siusti ataskaita i el. pasta\n [6] Atspausdinti ataskaita PDF\n [7] Iseiti is programos\n");
                 string userInputValue = Console.ReadLine();
 
                 if (int.TryParse(userInputValue, out argumentValue))
@@ -170,6 +170,11 @@ namespace StudentuDienynas.Classes
         {
             SendingToEmail email = new SendingToEmail();
             email.SendEmail();
+        }
+        public void GeneratePDF()
+        {
+            PDFGenerator pdf = new PDFGenerator();
+            pdf.GeneratePDF();
         }
     }
 }

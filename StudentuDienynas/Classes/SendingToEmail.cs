@@ -48,9 +48,7 @@ namespace StudentuDienynas.Classes
             Console.WriteLine("Email sent to " + to);
 
             System.IO.File.WriteAllText(@"C:\Users\AP\Desktop\New folder\BE\C#-Exam\StudentuDienynas\StudentuDienynas\report.html", studentList);
-            var htmlToPdf = new HtmlToPdf();
-            var pdfDocument = htmlToPdf.RenderHTMLFileAsPdf("report.html");
-            pdfDocument.SaveAs("ataskaita.pdf");
+            
         }
     }
 }
