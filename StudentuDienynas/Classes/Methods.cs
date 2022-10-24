@@ -18,23 +18,8 @@ namespace StudentuDienynas.Classes
             var s1 = new Student();
             var m1 = new Mark();
             Console.WriteLine("Studento ivedimas:");
-            Console.WriteLine("Iveskite studento ID");
-            bool isCorrect = true;
-            while (isCorrect)
-            {
-                int id = Convert.ToInt32(Console.ReadLine());
-                if (id != s1.StudentId || id != 0)
-                {
-                    s1.StudentId = id;
-                    isCorrect = false;
-                }
-                else
-                {
-                    Console.WriteLine("bandykite dar karta");
-                    isCorrect = true;
-                }
 
-            }
+            s1.StudentId = students.Retrieve().Count() + 1;
 
             Console.WriteLine("Iveskite varda");
             s1.Name = Console.ReadLine();
@@ -43,6 +28,8 @@ namespace StudentuDienynas.Classes
             m1.Id = s1.StudentId;
 
             bool isValid = true;
+            bool isValid2 = true;
+            bool isValid3 = true;
             while (isValid)
             {
                 Console.WriteLine("Iveskite 1 trimestro pazymi (1-10)");
@@ -57,28 +44,28 @@ namespace StudentuDienynas.Classes
                     Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
                 }
             };
-            while (isValid)
+            while (isValid2)
             {
                 Console.WriteLine("Iveskite 2 trimestro pazymi (1-10)");
                 int secondTrim = Convert.ToInt32(Console.ReadLine());
                 if (secondTrim > 0 && secondTrim <= 10)
                 {
                     m1.SecondTrim = secondTrim;
-                    isValid = false;
+                    isValid2 = false;
                 }
                 else
                 {
                     Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
                 }
             };
-            while (isValid)
+            while (isValid3)
             {
                 Console.WriteLine("Iveskite 3 trimestro pazymi (1-10)");
                 int thirdTrim = Convert.ToInt32(Console.ReadLine());
                 if (thirdTrim > 0 && thirdTrim <= 10)
                 {
                     m1.ThirdTrim = thirdTrim;
-                    isValid = false;
+                    isValid3 = false;
                 }
                 else
                 {
