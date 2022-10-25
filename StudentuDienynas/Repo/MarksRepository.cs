@@ -41,12 +41,18 @@ namespace StudentuDienynas.Repo
         }
         public Mark Retrieve(int markId)
         {
-            return Marks.SingleOrDefault(x => x.Id == markId);
+            return Marks.SingleOrDefault(x => x.StudentId == markId);
         }
 
         public void Save(Mark entity)
         {
             Marks.Add(entity);
+        }
+        public List<Mark> Delete(int studentId)
+        {
+            var student = Marks.SingleOrDefault(x => x.StudentId == studentId);
+            Marks.Remove(student);
+            return Marks;
         }
     }
 }

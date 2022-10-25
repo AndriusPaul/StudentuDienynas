@@ -8,7 +8,7 @@ namespace StudentuDienynas.Entities
 {
     public class Mark
     {
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         public int FirstTrim { get; set; }
         public int SecondTrim { get; set; }
         public int ThirdTrim { get; set; }
@@ -22,7 +22,7 @@ namespace StudentuDienynas.Entities
         }
         public Mark(int id, int firstTrim, int secondTrim, int thirdTrim)
         {
-            Id = id;
+            StudentId = id;
             FirstTrim = firstTrim;
             SecondTrim = secondTrim;
             ThirdTrim = thirdTrim;
