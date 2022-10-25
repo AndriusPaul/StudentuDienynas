@@ -3,6 +3,8 @@ using StudentuDienynas.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -74,17 +76,19 @@ namespace StudentuDienynas.Classes
         {
             var s1 = new Student();
             var m1 = new Mark();
+            var sj1 = new Subject();
             Console.WriteLine("Studento ivedimas:");
             var id = students.Retrieve().Count() + 1;
 
 
             s1.StudentId = id;
-
+            m1.StudentId = id;
+            sj1.Id = id;
             Console.WriteLine("Iveskite varda");
             s1.Name = Console.ReadLine();
             Console.WriteLine("Iveskite pavarde");
             s1.Surname = Console.ReadLine();
-            m1.StudentId = s1.StudentId;
+            
 
             bool isValid = true;
             bool isValid2 = true;
@@ -131,8 +135,19 @@ namespace StudentuDienynas.Classes
                     Console.WriteLine("Patikrinkite ar teisingai ivedate pazymi.");
                 }
             };
+           Console.WriteLine("Iveskite 4 dalykus kuriuos mokosi studentas");
+            Console.WriteLine("1:");
+            sj1.SubjectName = Console.ReadLine();
+            Console.WriteLine("2:");
+            sj1.SubjectName2 = Console.ReadLine();
+            Console.WriteLine("3:");
+            sj1.SubjectName3 = Console.ReadLine();
+            Console.WriteLine("4:");
+            sj1.SubjectName4 = Console.ReadLine();
+
             students.Save(s1);
             marks.Save(m1);
+            subject.Save(sj1);
 
             Console.WriteLine("Studentas sekmingai pridetas");
 
@@ -216,13 +231,12 @@ namespace StudentuDienynas.Classes
                 Console.WriteLine($"{student.StudentName} {student.StudentSurname}: {student.SubjectName}; {student.SubjectName2}; {student.SubjectName3}; {student.SubjectName4}");
             }
         }
-        public void SendEmail()
-        {
-            SendingToEmail email = new SendingToEmail();
-            email.SendEmail();
-        }
+       
         public void GeneratePDF()
         {
+            GenerateHTML htmlGenerator = new GenerateHTML(reportGenerator);
+            var studentList = htmlGenerator.GenerateHTMLWithColor();
+            System.IO.File.WriteAllText(@"C:\Users\AP\Desktop\New folder\BE\C#-Exam\StudentuDienynas\StudentuDienynas\report.html", studentList);
             PDFGenerator pdf = new PDFGenerator();
             pdf.GeneratePDF();
             pdf.OpenFile("ataskaita.pdf");
@@ -239,7 +253,39 @@ namespace StudentuDienynas.Classes
             else {
             students.Delete(studentId);
                 marks.Delete(studentId);
+                subject.Delete(studentId);
             }
+        }
+        public void SendEmail()
+        {
+            GenerateHTML htmlGenerator = new GenerateHTML(reportGenerator);
+
+            var studentList = htmlGenerator.GenerateHTMLWithColor();
+
+            MailAddress to = new MailAddress("to@example.com");
+            MailAddress from = new MailAddress("from@example.com");
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Report";
+            message.IsBodyHtml = true;
+            message.Body = studentList;
+            SmtpClient client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("7e71012932f43c", "2da6940405fbed"),
+                EnableSsl = true
+            };
+            try
+            {
+                client.Send(message);
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            Console.WriteLine("Email sent to " + to);
+
+            System.IO.File.WriteAllText(@"C:\Users\AP\Desktop\New folder\BE\C#-Exam\StudentuDienynas\StudentuDienynas\report.html", studentList);
+
         }
     }
 }
