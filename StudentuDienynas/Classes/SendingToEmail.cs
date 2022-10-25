@@ -22,7 +22,7 @@ namespace StudentuDienynas.Classes
             ReportGenerator reportGenerator = new ReportGenerator(student, mark, subject);
             GenerateHTML htmlGenerator = new GenerateHTML(reportGenerator);
 
-            SendingToEmail email = new SendingToEmail();
+            
             var studentList = htmlGenerator.GenerateHTMLWithColor();
 
             MailAddress to = new MailAddress("to@example.com");

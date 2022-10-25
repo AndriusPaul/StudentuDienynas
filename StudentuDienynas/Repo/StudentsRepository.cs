@@ -47,5 +47,13 @@ namespace StudentuDienynas.Repo
         {
             Students.Add(entity);
         }
+        public List<Student> Delete()
+        {
+            Console.WriteLine("Iveskite ID kuri studenta norite pasalinti");
+            int studentId = int.Parse(Console.ReadLine());
+            var student = Students.SingleOrDefault(x => x.StudentId == studentId);
+           Students.Remove(student);
+            return Students;
+        }
     }
 }

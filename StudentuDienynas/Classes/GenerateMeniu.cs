@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace StudentuDienynas.Classes
 {
@@ -17,21 +13,24 @@ namespace StudentuDienynas.Classes
                     methods.AddStudent();
                     break;
                 case 2:
-                    methods.AllStudentList();
+                    methods.DeleteStudentById();
                     break;
                 case 3:
-                    methods.Report();
+                    methods.AllStudentList();
                     break;
                 case 4:
-                    methods.StudentsSubjectList();
+                    methods.Report();
                     break;
                 case 5:
-                    methods.SendEmail();
+                    methods.StudentsSubjectList();
                     break;
                 case 6:
-                    methods.GeneratePDF();
+                    methods.SendEmail();
                     break;
                 case 7:
+                    methods.GeneratePDF();
+                   break;
+                case 8:
                     Environment.Exit(0);
                     break;
                 default:
