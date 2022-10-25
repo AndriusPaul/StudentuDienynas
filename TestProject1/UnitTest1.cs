@@ -74,9 +74,34 @@ namespace TestProject1
             
             //Act
             string actualResult = student.FullName;
-            //Assert
             string expectedResult = firstName + " " + lastName;
+            //Assert
             Assert.AreEqual(expectedResult, actualResult);
+        }
+        [Test]
+        public void DeleteObjectFromList_WhenGivenId_ReturnsCountOfObjectItems()
+        {
+            //Arrange
+            var students = new StudentsRepository();
+            //Act
+            students.Delete(1);
+            var result = students.Retrieve().Count();
+            var expected = 19;
+            //Assert
+            Assert.AreEqual(expected, result);
+        }
+        [Test]
+
+        public void GetObjectsOfSubjects_WhenObjectsWhereCreated_ReturnsObjectsCount()
+        {
+            SubjectRepository subject = new SubjectRepository();
+            Subject subject1 = new Subject { Id = 1,
+            SubjectName = "Fizika", SubjectName2 = "Matematika", SubjectName3 ="Informatika", SubjectName4 = "Lietuviu kalba"};
+            
+            subject.Save(subject1);
+            var expected = subject.Retrieve();
+
+            Assert.AreEqual(21, expected.Count);
         }
     }
 }
