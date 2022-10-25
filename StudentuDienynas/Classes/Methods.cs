@@ -1,19 +1,25 @@
 ﻿using StudentuDienynas.Entities;
 using StudentuDienynas.Repo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentuDienynas.Classes
 {
     public class Methods
     {
+        private SubjectRepository subject;
+        private StudentsRepository students;
+        private MarksRepository marks;
+        private ReportGenerator reportGenerator;
+        
+        public Methods()
+        {
+            subject = new SubjectRepository();
+            students = new StudentsRepository();
+            marks = new MarksRepository();
+            reportGenerator = new ReportGenerator(students,marks,subject);
+        }
         public void AddStudent()
         {
-            StudentsRepository students = new StudentsRepository();
-            MarksRepository marks = new MarksRepository();
+           
 
             var s1 = new Student();
             var m1 = new Mark();
@@ -84,7 +90,7 @@ namespace StudentuDienynas.Classes
 
             while (!isCorrectNumber)
             {
-                Console.WriteLine("Meniu:\n [1] Prideti Studenta\n [2] Esamas studentu sarasas\n [3] Rodyti studentus kuriu metinis (ivesti)\n [4] Studentu dalyku sarasas\n [5] Siusti ataskaita i el. pasta\n [6] Atspausdinti ataskaita PDF\n [7] Iseiti is programos\n");
+                Console.WriteLine("Meniu:\n [1] Prideti Studenta\n [2] Pasalinti studenta\n [3] Esamas studentu sarasas\n [4] Rodyti studentus kuriu metinis (ivesti)\n [5] Studentu dalyku sarasas\n [6] Siusti ataskaita i el. pasta\n [7] Atspausdinti ataskaita PDF\n [8] Iseiti is programos\n");
                 string userInputValue = Console.ReadLine();
 
                 if (int.TryParse(userInputValue, out argumentValue))
@@ -122,26 +128,19 @@ namespace StudentuDienynas.Classes
         }
         public void Report()
         {
-            StudentsRepository students = new StudentsRepository();
-            MarksRepository marks = new MarksRepository();
-            SubjectRepository subjects = new SubjectRepository();
-            ReportGenerator reportGenerator = new ReportGenerator(students, marks, subjects);
-            var above6 = reportGenerator.GenerateStudentWithAverageAbove();
+            
+            var average = reportGenerator.GenerateStudentWithAverageAbove();
 
-            foreach (var item in above6)
+            foreach (var item in average)
             {
                 Console.WriteLine($"{item.StudentSurname}: metinis pazymys  {Math.Round(item.YearAvarage, 2)}");
             }
 
 
         }
-
         public void AllStudentList()
         {
-            StudentsRepository students = new StudentsRepository();
-            MarksRepository marks = new MarksRepository();
-            SubjectRepository subjects = new SubjectRepository();
-            ReportGenerator reportGenerator = new ReportGenerator(students, marks, subjects);
+            
 
             var allStudentsAndMarks = reportGenerator.GenerateStudentsAndTheirAllTrimAndYearAvr();
 
@@ -149,18 +148,10 @@ namespace StudentuDienynas.Classes
             {
                 Console.WriteLine($"{student.StudentName} {student.StudentSurname} 1:{student.FirstTrim}; 2:{student.SecondTrim}; 3:{student.ThirdTrim}; Metinis: {Math.Round(student.YearAvarage, 2)}");
             }
-
-
-
         }
         public void StudentsSubjectList()
         {
-            StudentsRepository students = new StudentsRepository();
-            MarksRepository marks = new MarksRepository();
-            SubjectRepository subjects = new SubjectRepository();
-            ReportGenerator reportGenerator = new ReportGenerator(students, marks, subjects);
-
-            var allStudentsAndSubject = reportGenerator.GenerateStudentsSubjects();
+           var allStudentsAndSubject = reportGenerator.GenerateStudentsSubjects();
             foreach (var student in allStudentsAndSubject)
             {
                 Console.WriteLine($"{student.StudentName} {student.StudentSurname}: {student.SubjectName}; {student.SubjectName2}; {student.SubjectName3}; {student.SubjectName4}");
@@ -175,6 +166,16 @@ namespace StudentuDienynas.Classes
         {
             PDFGenerator pdf = new PDFGenerator();
             pdf.GeneratePDF();
+            pdf.OpenFile("ataskaita.pdf");
+        }
+        public void DeleteStudentById()
+        {
+          var allStudentsAndMarks = reportGenerator.GenerateStudentsAndTheirAllTrimAndYearAvr();
+            students.Delete();
+            foreach (var student in allStudentsAndMarks)
+            {
+                Console.WriteLine($"{student.StudentName} {student.StudentSurname} 1:{student.FirstTrim}; 2:{student.SecondTrim}; 3:{student.ThirdTrim}; Metinis: {Math.Round(student.YearAvarage, 2)}");
+            }
         }
     }
 }

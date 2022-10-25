@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="report.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="report.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="PDF.Core" Version="2020.12.2" />
   </ItemGroup>
 
