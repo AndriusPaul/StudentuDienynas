@@ -31,7 +31,7 @@ namespace StudentuDienynas.Classes
             foreach (var student in students)
             {
                 var marks = _marks.Retrieve(student.StudentId);
-                var subject = _subject.Retrieve(marks.Id);
+                var subject = _subject.Retrieve(marks.StudentId);
                 if (marks.Total >= input2)
                 {
                     reportItems.Add(new ReportItem()
