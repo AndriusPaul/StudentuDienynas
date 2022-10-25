@@ -64,5 +64,19 @@ namespace TestProject1
             //Assert
             Assert.AreEqual(expected, result.SubjectName4);
         }
+
+        [Test]
+        [TestCase(1,"Rimas", "Rimaitis")]
+        public void GetFullName_WhenFirstNameAndLastNamePassed_ReturnsValidFullName(int id, string firstName, string lastName)
+        {
+            //Arrange
+            Student student = new Student(id, firstName,lastName);
+            
+            //Act
+            string actualResult = student.FullName;
+            //Assert
+            string expectedResult = firstName + " " + lastName;
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }

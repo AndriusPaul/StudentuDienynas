@@ -47,5 +47,11 @@ namespace StudentuDienynas.Repo
         {
             Subjects.Add(entity);
         }
+        public List<Subject> Delete(int studentId)
+        {
+            var student = Subjects.SingleOrDefault(x => x.Id == studentId);
+            Subjects.Remove(student);
+            return Subjects;
+        }
     }
 }
