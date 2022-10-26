@@ -1,5 +1,4 @@
-﻿using IronPdf;
-using StudentuDienynas.Classes;
+﻿using StudentuDienynas.Classes;
 
 Init init = new Init();
 init.Start();
