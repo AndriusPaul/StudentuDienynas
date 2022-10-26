@@ -78,12 +78,23 @@ namespace StudentuDienynas.Classes
             var m1 = new Mark();
             var sj1 = new Subject();
             Console.WriteLine("Studento ivedimas:");
-            var id = students.Retrieve().Count() + 1;
+            var id = 0;
+            if(id == students.Retrieve().Count())
+            {
+                id = students.Retrieve().Count() + 1;
+            }
+            else
+            {
+                id = students.Retrieve().Count() + 2;
+            }
+            
 
 
             s1.StudentId = id;
             m1.StudentId = id;
             sj1.Id = id;
+
+           
             Console.WriteLine("Iveskite varda");
             s1.Name = Console.ReadLine();
             Console.WriteLine("Iveskite pavarde");
@@ -150,13 +161,6 @@ namespace StudentuDienynas.Classes
             subject.Save(sj1);
 
             Console.WriteLine("Studentas sekmingai pridetas");
-
-            var allStudentsAndMarks = reportGenerator.GenerateStudentsAndTheirAllTrimAndYearAvr();
-
-            foreach (var student in allStudentsAndMarks)
-            {
-                Console.WriteLine($"{student.StudentName} {student.StudentSurname} 1:{student.FirstTrim}; 2:{student.SecondTrim}; 3:{student.ThirdTrim}; Metinis: {Math.Round(student.YearAvarage, 2)}");
-            }
         }
         public int GetFirstUserInputFromConsole()
         {
@@ -255,6 +259,8 @@ namespace StudentuDienynas.Classes
                 marks.Delete(studentId);
                 subject.Delete(studentId);
             }
+
+            Console.WriteLine($"Studentas istrintas");
         }
         public void SendEmail()
         {
