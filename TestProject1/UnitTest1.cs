@@ -15,6 +15,7 @@ namespace TestProject1
         {
             //Arrange
             var studentai = new StudentsRepository();
+            studentai.DeleteList();
             var s1 = new Student();
             var s2 = new Student();
             var s3 = new Student();
@@ -39,7 +40,7 @@ namespace TestProject1
             List<Student> resultatas = studentai.Retrieve();
 
             //Assert
-            Assert.AreEqual(23, resultatas.Count);
+            Assert.AreEqual(3, resultatas.Count);
         }
         [Test]
 
@@ -47,7 +48,7 @@ namespace TestProject1
         {
             //Arrange
             SubjectRepository subject = new SubjectRepository();
-
+            subject.DeleteList();
             Subject sj1 = new Subject
             {
                 Id = 21,
@@ -95,13 +96,14 @@ namespace TestProject1
         public void GetObjectsOfSubjects_WhenObjectsWhereCreated_ReturnsObjectsCount()
         {
             SubjectRepository subject = new SubjectRepository();
-            Subject subject1 = new Subject { Id = 1,
+            subject.DeleteList();
+            Subject subject1 = new Subject { Id = 1, 
             SubjectName = "Fizika", SubjectName2 = "Matematika", SubjectName3 ="Informatika", SubjectName4 = "Lietuviu kalba"};
             
             subject.Save(subject1);
             var expected = subject.Retrieve();
 
-            Assert.AreEqual(21, expected.Count);
+            Assert.AreEqual(1, expected.Count);
         }
     }
 }

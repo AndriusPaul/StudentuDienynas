@@ -53,5 +53,9 @@ namespace StudentuDienynas.Repo
            Students.Remove(student);
             return Students;
         }
+        public void DeleteList()
+        {
+            Students.Clear();
+        }
     }
 }
