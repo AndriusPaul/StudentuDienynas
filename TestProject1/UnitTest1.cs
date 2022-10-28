@@ -15,7 +15,6 @@ namespace TestProject1
         {
             //Arrange
             var studentai = new StudentsRepository();
-            studentai.DeleteList();
             var s1 = new Student();
             var s2 = new Student();
             var s3 = new Student();
@@ -40,7 +39,7 @@ namespace TestProject1
             List<Student> resultatas = studentai.Retrieve();
 
             //Assert
-            Assert.AreEqual(3, resultatas.Count);
+            Assert.AreEqual(23, resultatas.Count);
         }
         [Test]
 
@@ -48,7 +47,7 @@ namespace TestProject1
         {
             //Arrange
             SubjectRepository subject = new SubjectRepository();
-            subject.DeleteList();
+
             Subject sj1 = new Subject
             {
                 Id = 21,
@@ -61,7 +60,7 @@ namespace TestProject1
             subject.Save(sj1);
             
             var result = subject.Retrieve(21);
-            var expected = result.SubjectName4;
+            var expected = sj1.SubjectName4;
             //Assert
             Assert.AreEqual(expected, result.SubjectName4);
         }
@@ -83,11 +82,27 @@ namespace TestProject1
         public void DeleteObjectFromList_WhenGivenId_ReturnsCountOfObjectItems()
         {
             //Arrange
-            var students = new StudentsRepository();
+            StudentsRepository students = new StudentsRepository();
+            students.DeleteList();
+            Student studentOne = new Student
+            {
+                StudentId = 1,
+                Name = "Joe",
+                Surname = "Dolphin",
+                
+            };
+            Student studentTwo = new Student
+            {
+                StudentId = 2,
+                Name = "John",
+                Surname = "Doe",
+            };
             //Act
-            students.Delete(1);
+            students.Save(studentOne);
+            students.Save(studentTwo);
+            students.Delete(2);
             var result = students.Retrieve().Count();
-            var expected = 19;
+            var expected = 1;
             //Assert
             Assert.AreEqual(expected, result);
         }
